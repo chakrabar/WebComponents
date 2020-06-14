@@ -17,7 +17,7 @@ This repo is actually the set of experiments.
 I made a not-so-complex web component, in all 3 ways, with exact same functionality and styles. Below are my initial findings (which I hope I'll keep up to date with new experiences and new knowledge).
 
 | Area|Plain JavaScript|LitElement|Angular|
-| :---|----:|---:|---:|
+|:---|:----|:---|:---|
 |Total payload|39kb|160kb|573kb|
 |Simplicity of code|Gets complex pretty fast with functional complexity|Quite simple for a standard web component|It's just Angular component with few additional stuffs. So initial setup is elaborate. But once setup, building much complex features is comparatively easier|
 |Compatibility|Need to configure required polyfills|Polyfills auto-configured|Polyfills auto-configured|
