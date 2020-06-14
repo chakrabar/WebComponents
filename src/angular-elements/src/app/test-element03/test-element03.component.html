@@ -1,0 +1,16 @@
+<h1>Hello, {{this.name}}!</h1>
+Name: <input
+    #userInput
+    type="text"
+    placeholder="World"
+    (input)="syncName(userInput.value)" />
+<button
+    class="float-right"
+    (click)="toggle()"
+>{{collapsed ? 'Expand ↓' : 'Collapse ↑'}}</button>
+<div *ngIf="!collapsed" class="box">
+    <button (click)="onClick()">
+        Click Count: {{count}}
+    </button>
+    <slot></slot>
+</div>

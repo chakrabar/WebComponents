@@ -1,0 +1,24 @@
+html {
+    --primary-color: #7fcfe7;
+    --background-color: teal;
+    --font-family: 'Operator Mono Book Italic';
+    font-family: 'Operator Mono Book Italic';
+}
+button {
+    font-family: 'Operator Mono Book Italic';
+}
+p {
+    border: solid 1px rgb(250, 250, 141);
+    padding: 8px;
+}
+.test {
+    color: #7fcfe7;
+    background-color: #bbf2d0;
+}
+
+@font-face {
+    font-family: 'Operator Mono Book Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Operator Mono Book Italic'), url('OperatorMono-BookItalic.woff') format('woff');
+}

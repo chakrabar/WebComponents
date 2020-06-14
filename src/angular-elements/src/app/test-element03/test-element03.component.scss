@@ -1,0 +1,21 @@
+:host {
+    display: block;
+    border: solid 1px gray;
+    padding: 16px;
+    max-width: 800px;
+    color: var(--primary-color, darkgrey);
+    background-color: var(--background-color, white);
+    font-family: var(--font-family, sans-serif);
+}
+button {
+    font-family: var(--font-family, sans-serif);
+}
+input {
+    font-family: var(--font-family, sans-serif);
+}
+.box {
+    padding: 10px;
+}
+.float-right {
+    float: right;
+}
