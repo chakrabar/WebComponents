@@ -1,27 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
-import { createCustomElement } from '@angular/elements';
-// import { AppComponent } from './app.component';
+import { createCustomElement } from '@angular/elements'; // ARGHYA: to make web component
 import { TestElement03Component } from './test-element03/test-element03.component';
 
 // this is the main module
 @NgModule({
     declarations: [
-        // AppComponent, // a sample component
-        TestElement03Component // our web component
+        TestElement03Component // include our web component
     ],
     entryComponents: [
-        TestElement03Component // have the context & will start up WHEN NEEDED
+        TestElement03Component // ARGHYA: have the context & will start up WHEN NEEDED
         // to use outside angular i.e. independently
     ],
     imports: [
         BrowserModule,
     ],
     providers: [],
-    // bootstrap: [TestElement03Component] // [AppComponent] <== do not try to render the component
-    // i.e. start up the module, but DO NOT start up the component
+    // bootstrap: [TestElement03Component] // ARGHYA: do not try to render the component
+    // i.e. start up the module, but DO NOT start up the component on it's own
 })
-export class AppModule {
+export class ElementHostModule {
     constructor(private injector: Injector) { }
 
     ngDoBootstrap() {

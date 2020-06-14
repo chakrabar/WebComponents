@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewEncapsulation, Input, HostListener, HostBinding } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 
 @Component({
-    selector: 'app-test-element03',
+    selector: 'app-test-element03', // this is not really used
     templateUrl: './test-element03.component.html',
     styleUrls: ['./test-element03.component.scss'],
-    encapsulation: ViewEncapsulation.ShadowDom, // shadow dom will be used to encapsulate styles
+    encapsulation: ViewEncapsulation.ShadowDom, // ARGHYA: shadow dom will be used to encapsulate styles
 })
 export class TestElement03Component implements OnInit {
 
