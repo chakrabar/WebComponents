@@ -22,6 +22,7 @@ function passDevMetadata() {
 
 function registerEventListener() {
     document.body.addEventListener('data-update', function(e) {
+        console.info('data-update detected...');
         console.info(e);
     })
 }

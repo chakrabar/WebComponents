@@ -74,12 +74,25 @@ class TestElement02 extends HTMLElement {
                 this.name = parsedMetadata.name;
                 this.shadowRoot.querySelector('#clkBtn').innerHTML = `Click Count: ${this.count}`;
                 this.shadowRoot.querySelector('h1').innerHTML = `Hello, ${this.name}!`;
+                this.shadowRoot.querySelector('input').placeholder = this.name;
             }
             else {
                 console.error(`Invalid metadata value!`);
                 console.error(this.metadata);
             }
         }
+    }
+    _notify = () => { // NOTE: Cannot read element properties if function NOT arrow!
+        const notifyEvent = new CustomEvent('data-update', { 
+            detail: { 
+                elementId: this.id,
+                property: 'name',
+                value: this.name,
+            },
+            bubbles: true, // go up the DOM
+            composed: true, // go through ShadowDom
+        });
+        this.dispatchEvent(notifyEvent);
     }
 
     connectedCallback() {
@@ -126,6 +139,7 @@ class TestElement02 extends HTMLElement {
         this.shadowRoot.querySelector('#tglBtn').addEventListener('click', this.toggle);
         this.shadowRoot.querySelector('#clkBtn').addEventListener('click', this.onClick);
         this.shadowRoot.querySelector('input').addEventListener('input', this.syncName);
+        this.shadowRoot.querySelector('input').addEventListener('change', this._notify);
 
         this.metadata = this.getAttribute('metadata');
         this._updateMetadata();
