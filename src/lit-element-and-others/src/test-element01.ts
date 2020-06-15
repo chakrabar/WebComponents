@@ -50,7 +50,7 @@ export class TestElement01 extends LitElement {
     get metadata(): string {
         return this._metadata;
     }
-    set metadata(value: string) {
+    set metadata(value: string) { // when value of metadata is set from JS
         // const oldValue = this._metadata;
         this._metadata = value;
         // this.requestUpdate('metadata', oldValue);

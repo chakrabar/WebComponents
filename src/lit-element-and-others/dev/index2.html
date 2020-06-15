@@ -11,9 +11,10 @@
         <h2>Vanilla JS Web Component</h2>
         Change Theme: <button id="themeButton" onclick="changeTheme()">Night</button>
         <br /><br />
-        <test-element02 collapsed="true">
+        <test-element02 id="element" collapsed="true" metadata='{"count":10,"name":"Guest"}'>
             <p>This is a test 02: Web Component with Vanilla JS</p>
         </test-element02>
         <br /><br />
+        <button id="devData" onclick="passDevMetadata()">Pass data</button>
     </body>
 </html>

@@ -26,11 +26,8 @@ let TestElement01 = class TestElement01 extends LitElement {
         // const oldValue = this._metadata;
         this._metadata = value;
         // this.requestUpdate('metadata', oldValue);
-        this._updateMetadata();
+        this._updateMetadata(); // this is actually object
     }
-    // connectedCallback() {
-    //     this._updateMetadata();
-    // }
     render() {
         return html `
         <h1>Hello, ${this.name}!</h1>
@@ -106,7 +103,7 @@ __decorate([
     property({ type: Boolean })
 ], TestElement01.prototype, "collapsed", void 0);
 __decorate([
-    property() // {attribute: false} to make non-attribute
+    property() // {attribute: false} to make non-attribute BUT we do want to keep attribute too
 ], TestElement01.prototype, "metadata", null);
 TestElement01 = __decorate([
     customElement('test-element01')

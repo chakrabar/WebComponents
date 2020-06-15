@@ -1,7 +1,7 @@
 class TestElement02 extends HTMLElement {
 
     static get observedAttributes() {
-        return ['collapsed'];
+        return ['collapsed', 'metadata'];
     }
 
     constructor() {
@@ -10,6 +10,7 @@ class TestElement02 extends HTMLElement {
         this.name = 'World';
         this._collapsed = false;
         this.count = 0;
+        this._metadata = '';
     }
 
     get collapsed() {
@@ -21,10 +22,22 @@ class TestElement02 extends HTMLElement {
         this.setAttribute('collapsed', val);
     }
 
+    get metadata() {
+        return this._metadata;
+    }
+
+    set metadata(val) {
+        this._metadata = val;
+        this._updateMetadata();
+    }
+
     attributeChangedCallback(attrName, oldValue, newValue) {
         if (newValue !== oldValue) {
             if (attrName === 'collapsed') {
                 this._collapsed = newValue?.toLowerCase() === 'true' ? true : false;
+            }
+            if (attrName === 'metadata') {
+                this._updateMetadata(); // through we don't really this attribute to update
             }
         }
     }
@@ -51,6 +64,23 @@ class TestElement02 extends HTMLElement {
         const nm = event.target.value;
         this.name = nm ? nm : 'World';
         this.shadowRoot.querySelector('h1').innerHTML = `Hello, ${this.name}!`;
+    }
+    _updateMetadata() {
+        if (this.metadata) {
+            const parsedMetadata = typeof this.metadata === 'string'
+                ? JSON.parse(this.metadata)
+                : this.metadata;
+            if (parsedMetadata) {
+                this.count = parsedMetadata.count;
+                this.name = parsedMetadata.name;
+                this.shadowRoot.querySelector('#clkBtn').innerHTML = `Click Count: ${this.count}`;
+                this.shadowRoot.querySelector('h1').innerHTML = `Hello, ${this.name}!`;
+            }
+            else {
+                console.error(`Invalid metadata value!`);
+                console.error(this.metadata);
+            }
+        }
     }
 
     connectedCallback() {
@@ -98,6 +128,8 @@ class TestElement02 extends HTMLElement {
         this.shadowRoot.querySelector('#clkBtn').addEventListener('click', this.onClick);
         this.shadowRoot.querySelector('input').addEventListener('input', this.syncName);
 
+        this.metadata = this.getAttribute('metadata');
+        this._updateMetadata();
         this.updateCollapsedState();
     }
 }
