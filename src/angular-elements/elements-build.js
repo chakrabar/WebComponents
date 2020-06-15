@@ -1,4 +1,19 @@
 // ARGHYA: Custom build to generate single file web component
+const fs = require('fs-extra');
+const concat = require('concat');
+(async function build() {
+    const files = [
+        './dist/angularElements/polyfills-es2015.js',
+        './dist/angularElements/runtime-es2015.js',
+        // './dist/angularElements/scripts.js', // ARGHYA: is it required?
+        './dist/angularElements/main-es2015.js',
+    ]
+    await fs.ensureDir('dist/web_component')
+    await concat(files, 'dist/web_component/test-element03.js');
+    await fs.copyFile('./dist/angularElements/styles.css', 'dist/web_component/styles.css')
+    // await fs.copy('./dist/angularElements/assets/', 'elements/assets/' )
+    
+})()
 
 // ES5
 // {
@@ -24,18 +39,17 @@
 //         ]
 //     }
 // }
-const fs = require('fs-extra');
-const concat = require('concat');
-(async function build() {
-    const files = [
-        './dist/angularElements/runtime.js',
-        './dist/angularElements/polyfills-es5.js',
-        './dist/angularElements/scripts.js',
-        './dist/angularElements/main.js',
-    ]
-    await fs.ensureDir('dist/es5_web_component')
-    await concat(files, 'dist/es5_web_component/test-element03.js');
-    await fs.copyFile('./dist/angularElements/styles.css', 'dist/es5_web_component/styles.css')
-    // await fs.copy('./dist/angularElements/assets/', 'elements/assets/' )
-    
-})()
+// const fs = require('fs-extra');
+// const concat = require('concat');
+// (async function build() {
+//     const files = [
+//         './dist/angularElements/runtime.js',
+//         './dist/angularElements/polyfills-es5.js',
+//         './dist/angularElements/scripts.js',
+//         './dist/angularElements/main.js',
+//     ]
+//     await fs.ensureDir('dist/es5_web_component')
+//     await concat(files, 'dist/es5_web_component/test-element03.js');
+//     await fs.copyFile('./dist/angularElements/styles.css', 'dist/es5_web_component/styles.css')
+//     // await fs.copy('./dist/angularElements/assets/', 'elements/assets/' )
+// })()
