@@ -1,8 +1,8 @@
-<h1>Hello, {{this.name}}!</h1>
+<h1>Hello, {{name}}!</h1>
 Name: <input
     #userInput
     type="text"
-    placeholder="World"
+    placeholder="{{name}}"
     (input)="syncName(userInput.value)" />
 <button
     class="float-right"

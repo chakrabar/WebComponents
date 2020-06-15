@@ -10,3 +10,12 @@ function changeTheme() {
         document.querySelector('#themeButton').innerHTML = 'Night';
     }
 }
+
+function passDevMetadata() {
+    var custElement = document.querySelector('#element');
+	var devData = {
+		name: 'Developer',
+		count: 99,
+	};
+	custElement.metadata = devData;
+}

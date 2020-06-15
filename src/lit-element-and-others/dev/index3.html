@@ -12,9 +12,10 @@
         <h2>Angular Element Web Component LlIit1O0jJKkVvUuWw</h2>
         Change Theme: <button id="themeButton" onclick="changeTheme()">Night</button>
         <br /><br />
-        <test-element03 collapsed="true">
+        <test-element03 id="element" collapsed="true" metadata='{"count":10,"name":"Guest"}'>
             <p>This is a test 03: Web Component with Angular Element</p>
         </test-element03>
         <br /><br />
+		<button id="devData" onclick="passDevMetadata()">Pass data</button>
     </body>
 </html>

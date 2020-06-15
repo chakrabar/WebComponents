@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, OnChanges } from '@angular/core';
+import { ElementMetadata } from './elementMetadata';
 
 @Component({
     selector: 'app-test-element03', // this is not really used
@@ -6,7 +7,7 @@ import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
     styleUrls: ['./test-element03.component.scss'],
     encapsulation: ViewEncapsulation.ShadowDom, // ARGHYA: shadow dom will be used to encapsulate styles
 })
-export class TestElement03Component implements OnInit {
+export class TestElement03Component implements OnInit, OnChanges {
 
     constructor() { }
 
@@ -16,22 +17,48 @@ export class TestElement03Component implements OnInit {
     @Input()
     public collapsed = false;
 
-    // @HostBinding('attr.selected')
-    // public isActive: boolean;
+    @Input()
+    public metadata: ElementMetadata;
 
-    ngOnInit() { }
+    ngOnInit() {
+        console.log('Initializing with metadata')
+        this._updateMetadata();
+    }
 
-    public onClick() {
+    ngOnChanges() {
+        console.log('Element property value updated')
+        this._updateMetadata();
+    }
+
+    private _updateMetadata(): void {
+        if (this.metadata) {
+            const parsedMetadata = typeof this.metadata === 'string'
+                ? JSON.parse(this.metadata)
+                : this.metadata;
+            if (parsedMetadata) {
+                this.count = parsedMetadata.count;
+                this.name = parsedMetadata.name;
+            } else {
+                console.error(`Invalid metadata attribute value!`);
+                console.error(this.metadata);
+            }
+        }
+    }
+
+    public onClick(): void {
         this.count++;
     }
 
-    public toggle() {
+    public toggle(): void {
         this.collapsed = !this.collapsed;
     }
 
-    public syncName(value: string) {
+    public syncName(value: string): void {
         this.name = value ? value : 'World';
     }
+
+    // @HostBinding('attr.selected')
+    // public isActive: boolean;
 
     // @HostListener('click')
     // public onHostClick($event: any) {
