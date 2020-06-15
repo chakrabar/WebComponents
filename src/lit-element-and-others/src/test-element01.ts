@@ -60,7 +60,7 @@ export class TestElement01 extends LitElement {
     render() {
         return html`
         <h1>Hello, ${this.name}!</h1>
-        Name: <input type="text" @input=${this._syncName} placeholder="${this.name}" />
+        Name: <input type="text" @change=${this._notify} @input=${this._syncName} placeholder="${this.name}" />
         <button class="float-right" @click=${this._toggle}>${this.collapsed ? 'Expand ↓' : 'Collapse ↑'}</button>
         <div class="box ${this.collapsed ? 'collapsed' : ''}">
             <button @click=${this._onClick} part="button">
@@ -84,7 +84,7 @@ export class TestElement01 extends LitElement {
         this.name = value ? value : 'World';
     }
 
-    _updateMetadata(): void {
+    private _updateMetadata(): void {
         if (this.metadata) {
             const parsedMetadata = typeof this.metadata === 'string'
                 ? JSON.parse(this.metadata)
@@ -97,6 +97,19 @@ export class TestElement01 extends LitElement {
                 console.error(this.metadata);
             }
         }
+    }
+
+    private _notify(): void {
+        const notifyEvent = new CustomEvent('data-update', { 
+            detail: { 
+                elementId: this.id,
+                property: 'name',
+                value: this.name,
+            },
+            bubbles: true, // go up the DOM
+            composed: true, // go through ShadowDom
+        });
+        this.dispatchEvent(notifyEvent);
     }
 }
 

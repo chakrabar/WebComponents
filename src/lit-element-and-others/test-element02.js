@@ -60,7 +60,6 @@ class TestElement02 extends HTMLElement {
         }
     }
     syncName = (event) => {
-        console.log(event);
         const nm = event.target.value;
         this.name = nm ? nm : 'World';
         this.shadowRoot.querySelector('h1').innerHTML = `Hello, ${this.name}!`;

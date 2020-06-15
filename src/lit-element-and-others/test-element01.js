@@ -31,7 +31,7 @@ let TestElement01 = class TestElement01 extends LitElement {
     render() {
         return html `
         <h1>Hello, ${this.name}!</h1>
-        Name: <input type="text" @input=${this._syncName} placeholder="${this.name}" />
+        Name: <input type="text" @change=${this._notify} @input=${this._syncName} placeholder="${this.name}" />
         <button class="float-right" @click=${this._toggle}>${this.collapsed ? 'Expand ↓' : 'Collapse ↑'}</button>
         <div class="box ${this.collapsed ? 'collapsed' : ''}">
             <button @click=${this._onClick} part="button">
@@ -65,6 +65,18 @@ let TestElement01 = class TestElement01 extends LitElement {
                 console.error(this.metadata);
             }
         }
+    }
+    _notify() {
+        const notifyEvent = new CustomEvent('data-update', {
+            detail: {
+                elementId: this.id,
+                property: 'name',
+                value: this.name,
+            },
+            bubbles: true,
+            composed: true,
+        });
+        this.dispatchEvent(notifyEvent);
     }
 };
 TestElement01.styles = css `

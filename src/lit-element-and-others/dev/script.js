@@ -19,3 +19,7 @@ function passDevMetadata() {
 	};
 	custElement.metadata = devData;
 }
+
+// document.body.addEventListener('data-update', function(e) {
+//     console.info(e);
+// })

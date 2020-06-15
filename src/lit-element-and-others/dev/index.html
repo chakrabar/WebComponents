@@ -16,5 +16,10 @@
         </test-element01>
         <br /><br />
         <button id="devData" onclick="passDevMetadata()">Pass data</button>
+        <script>
+            document.body.addEventListener('data-update', function(e) {
+                console.info(e);
+            })
+        </script>
     </body>
 </html>

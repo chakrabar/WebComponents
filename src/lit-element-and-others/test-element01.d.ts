@@ -17,7 +17,8 @@ export declare class TestElement01 extends LitElement {
     private _onClick;
     private _toggle;
     private _syncName;
-    _updateMetadata(): void;
+    private _updateMetadata;
+    private _notify;
 }
 declare global {
     interface HTMLElementTagNameMap {
