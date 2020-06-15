@@ -61,6 +61,6 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
-// ARGHYA: Following is required IF target is ES5
-// npm install @webcomponents/webcomponentsjs --save-dev @ https://github.com/angular/angular/issues/24556
-import '@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js';
+// ARGHYA: Following is required IF target is ES5 @ https://github.com/angular/angular/issues/24556
+// npm install @webcomponents/webcomponentsjs --save-dev
+// import '@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js';

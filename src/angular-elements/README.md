@@ -1,4 +1,27 @@
-# AngularElements
+# Web Component with AngularElements
+
+Some information along the way
+
+When we build an angular project, it mainly creates the following files
+
+1. runtime.js => a bit of initial glue code for webpack ??
+2. polyfills.js => polyfills
+3. main.js => my components ts code + html + framework ??
+4. scripts.js => ??
+5. styles.css => styles
+
+## Custom build
+
+To build and pack the `WebComponent` as a single file, run the following command
+
+> npm run build:elements
+
+The custom build step is defined in `elements-build.js`. It'll build following set of outputs
+
+1. `dist/angularElements` => Standard `Angular` build output files
+2. `dist/web_component` => The `WebComponent` as a single `JS` file & `CSS` styles
+
+---
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
 
