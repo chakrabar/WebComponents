@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, OnChanges, ElementRef } from '@angular/core';
 import { ElementMetadata } from './elementMetadata';
 
 @Component({
@@ -9,7 +9,9 @@ import { ElementMetadata } from './elementMetadata';
 })
 export class TestElement03Component implements OnInit, OnChanges {
 
-    constructor() { }
+    constructor(
+        private element: ElementRef,
+    ) { }
 
     public name = 'World';
     public count = 0;
@@ -55,6 +57,21 @@ export class TestElement03Component implements OnInit, OnChanges {
 
     public syncName(value: string): void {
         this.name = value ? value : 'World';
+    }
+
+    // Well, this is not very Angular TBH
+    public notify(): void {
+        console.log(`Dispatching data-update...${this.element.nativeElement.id}`);
+        const notifyEvent = new CustomEvent('data-update', {
+            detail: {
+                elementId: this.element.nativeElement.id,
+                property: 'name',
+                value: this.name,
+            },
+            bubbles: true, // go up the DOM
+            composed: true, // go through ShadowDom
+        });
+        this.element.nativeElement.dispatchEvent(notifyEvent);
     }
 
     // @HostBinding('attr.selected')

@@ -3,7 +3,8 @@ Name: <input
     #userInput
     type="text"
     placeholder="{{name}}"
-    (input)="syncName(userInput.value)" />
+    (input)="syncName(userInput.value)"
+    (change)="notify()" />
 <button
     class="float-right"
     (click)="toggle()"
