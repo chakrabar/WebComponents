@@ -21,6 +21,8 @@ The custom build step is defined in `elements-build.js`. It'll build following s
 1. `dist/angularElements` => Standard `Angular` build output files
 2. `dist/web_component` => The `WebComponent` as a single `JS` file & `CSS` styles
 
+To use this in the main (`lit-element-and-others`), copy contents from `dist/web_component` into `src/lit-element-and-others/angular-components`.
+
 ---
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.

@@ -39,7 +39,7 @@ export class TestElement03Component implements OnInit, OnChanges {
                 this.count = parsedMetadata.count;
                 this.name = parsedMetadata.name;
             } else {
-                console.error(`Invalid metadata attribute value!`);
+                console.error(`Invalid metadata value!`);
                 console.error(this.metadata);
             }
         }
