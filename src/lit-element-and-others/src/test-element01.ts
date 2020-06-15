@@ -44,6 +44,19 @@ export class TestElement01 extends LitElement {
     @property({ type: Boolean })
     collapsed = false;
 
+    private _metadata = '';
+
+    @property() // {attribute: false} to make non-attribute BUT we do want to keep attribute too
+    get metadata(): string {
+        return this._metadata;
+    }
+    set metadata(value: string) {
+        // const oldValue = this._metadata;
+        this._metadata = value;
+        // this.requestUpdate('metadata', oldValue);
+        this._updateMetadata(); // this is actually object
+    }
+
     render() {
         return html`
         <h1>Hello, ${this.name}!</h1>
@@ -69,6 +82,21 @@ export class TestElement01 extends LitElement {
     private _syncName(event: any) {
         const value: string = event.target.value;
         this.name = value ? value : 'World';
+    }
+
+    _updateMetadata(): void {
+        if (this.metadata) {
+            const parsedMetadata = typeof this.metadata === 'string'
+                ? JSON.parse(this.metadata)
+                : this.metadata;
+            if (parsedMetadata) {
+                this.count = parsedMetadata.count;
+                this.name = parsedMetadata.name;
+            } else {
+                console.error(`Invalid metadata value!`);
+                console.error(this.metadata);
+            }
+        }
     }
 }
 

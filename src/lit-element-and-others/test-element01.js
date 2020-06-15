@@ -17,7 +17,20 @@ let TestElement01 = class TestElement01 extends LitElement {
         this.name = 'World';
         this.count = 0;
         this.collapsed = false;
+        this._metadata = '';
     }
+    get metadata() {
+        return this._metadata;
+    }
+    set metadata(value) {
+        // const oldValue = this._metadata;
+        this._metadata = value;
+        // this.requestUpdate('metadata', oldValue);
+        this._updateMetadata();
+    }
+    // connectedCallback() {
+    //     this._updateMetadata();
+    // }
     render() {
         return html `
         <h1>Hello, ${this.name}!</h1>
@@ -40,6 +53,21 @@ let TestElement01 = class TestElement01 extends LitElement {
     _syncName(event) {
         const value = event.target.value;
         this.name = value ? value : 'World';
+    }
+    _updateMetadata() {
+        if (this.metadata) {
+            const parsedMetadata = typeof this.metadata === 'string'
+                ? JSON.parse(this.metadata)
+                : this.metadata;
+            if (parsedMetadata) {
+                this.count = parsedMetadata.count;
+                this.name = parsedMetadata.name;
+            }
+            else {
+                console.error(`Invalid metadata value!`);
+                console.error(this.metadata);
+            }
+        }
     }
 };
 TestElement01.styles = css `
@@ -77,6 +105,9 @@ __decorate([
 __decorate([
     property({ type: Boolean })
 ], TestElement01.prototype, "collapsed", void 0);
+__decorate([
+    property() // {attribute: false} to make non-attribute
+], TestElement01.prototype, "metadata", null);
 TestElement01 = __decorate([
     customElement('test-element01')
 ], TestElement01);

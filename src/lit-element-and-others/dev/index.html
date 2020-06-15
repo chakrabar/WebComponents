@@ -11,9 +11,10 @@
         <h2>LitElement Web Component</h2>
         Change Theme: <button id="themeButton" onclick="changeTheme()">Night</button>
         <br /><br />
-        <test-element01 collapsed="true">
+        <test-element01 id="element" collapsed="true" metadata='{"count":10,"name":"Guest"}'>
             <p>This is a test 01: Web Component with LitElement</p>
         </test-element01>
         <br /><br />
+        <button id="devData" onclick="passDevMetadata()">Pass data</button>
     </body>
 </html>
