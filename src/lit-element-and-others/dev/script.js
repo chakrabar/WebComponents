@@ -20,6 +20,8 @@ function passDevMetadata() {
 	custElement.metadata = devData;
 }
 
-// document.body.addEventListener('data-update', function(e) {
-//     console.info(e);
-// })
+function registerEventListener() {
+    document.body.addEventListener('data-update', function(e) {
+        console.info(e);
+    })
+}
