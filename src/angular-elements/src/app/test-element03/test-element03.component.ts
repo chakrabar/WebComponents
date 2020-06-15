@@ -61,7 +61,6 @@ export class TestElement03Component implements OnInit, OnChanges {
 
     // Well, this is not very Angular TBH
     public notify(): void {
-        console.log(`Dispatching data-update...${this.element.nativeElement.id}`);
         const notifyEvent = new CustomEvent('data-update', {
             detail: {
                 elementId: this.element.nativeElement.id,
