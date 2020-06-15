@@ -30,3 +30,44 @@ I made a not-so-complex web component, in all 3 ways, with exact same functional
 1. The payload and load time includes the host page and styles as well, which is actually same for all 3 cases.
 2. Load time depends on the network & no. of files though!
 3. For `Angular`, a custom build was used to generate a sigle `JS` file. More info [here](src/angular-elements/README.md).
+
+### Project structure
+
+There are 2 projects with independent build systems.
+
+1. `src/angular-elements` => The `Angular` web component (Angular element)
+2. `src/lit-element-and-others` => The main project. It has
+    1. The `LitElement` web component (`src/lit-element-and-others/src/test-element01.ts`)
+    2. The `Vanilla JS` web component (`src/lit-element-and-others/test-element02.js`)
+    3. The dev test pages (`src/lit-element-and-others/dev/`)
+
+### Build
+
+To run the dev test pages
+
+* Go to `src/lit-element-and-others`
+* Run `npm run build` **IF** any change has been made to the `LitElement` web component `TS` file
+* The `Vanilla JS` web component is just a `JS` file (see above) so no build is required
+* Now run the server with `npm run serve`
+* Browse to `http://localhost:8000/dev/index.html` for `LitElement`, or `index2.html` for `plain JS` version, or `index3.html` for `Angular` version
+
+Since the `Angular` component is a separate project, that needs to be build separately **IF** any change is needed there. To build the `Angular` web component
+
+* Go to `src/angular-elements`
+* Run `npm run build:elements`
+* The updates dev test page can be accessed as described just above
+
+### The capabilities
+
+All three web components have the same set of features
+
+* The have 2 buttons and a text input
+* They have a `<slot>` to accomodate any custom `HTML` provided to them
+* They can expand/collapse on click of specified button
+* Any text entered in `name` text field updates the header
+* Clicking on the other button increments an internal counter and shows on the button
+* The `collapsed` attribute can be set to collapse the component
+* The `metadata` attribute can be set to pre-populate data
+* The `metadata` property can also be set from `JS` code
+* On change of the `name` text field, they emit an event
+* The theme can be controlled externally from the host page (with CSS variables)
