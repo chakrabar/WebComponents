@@ -11,7 +11,13 @@ export class TestElement03Component implements OnInit, OnChanges {
 
     constructor(
         private element: ElementRef,
-    ) { }
+    ) {
+        // NOTE: IMP: ARGHYA: hack 101 for output property!!
+        Object.defineProperty(this.element.nativeElement, 'result2', {
+            get: () => { return new ElementMetadata(this.name, this.count); }, // This arrow is useful
+            enumerable: true,
+        });
+    }
 
     public name = 'World';
     public count = 0;
@@ -22,7 +28,13 @@ export class TestElement03Component implements OnInit, OnChanges {
     @Input()
     public metadata: ElementMetadata;
 
-    // @Output()
+    @Input()
+    public get result3(): ElementMetadata {
+        return new ElementMetadata(this.name, this.count);
+    }
+    // NOTE: IMP: ARGHYA: hack 201 => using Input() to read data!!
+
+    // @Output() // this is NOT accessible from outside
     public get result(): ElementMetadata {
         console.log('result property read');
         return new ElementMetadata(this.name, this.count);
