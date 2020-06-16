@@ -22,6 +22,7 @@ function passDevMetadata() {
 
 function getResult() {
     var result = document.querySelector('#element').result;
+    console.log(`#element.result = ${result}`);
     if (result) {
         var resutText = `Name: ${result.name}, Count: ${result.count}`;
         document.querySelector('#result').innerHTML = resutText;
