@@ -20,9 +20,17 @@ function passDevMetadata() {
 	custElement.metadata = devData;
 }
 
+function getResult() {
+    var result = document.querySelector('#element').result;
+    if (result) {
+        var resutText = `Name: ${result.name}, Count: ${result.count}`;
+        document.querySelector('#result').innerHTML = resutText;
+    }
+}
+
 function registerEventListener() {
     document.body.addEventListener('data-update', function(e) {
         console.info('data-update detected...');
         console.info(e);
-    })
+    });
 }

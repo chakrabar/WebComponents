@@ -1,9 +1,7 @@
 import { LitElement } from 'lit-element';
+import { ElementMetadata } from './elementMetadata';
 /**
- * An example element.
- *
- * @slot - This element has a slot
- * @csspart button - The button
+ * An example element
  */
 export declare class TestElement01 extends LitElement {
     static styles: import("lit-element").CSSResult;
@@ -13,6 +11,7 @@ export declare class TestElement01 extends LitElement {
     private _metadata;
     get metadata(): string;
     set metadata(value: string);
+    get result(): ElementMetadata;
     render(): import("lit-element").TemplateResult;
     private _onClick;
     private _toggle;

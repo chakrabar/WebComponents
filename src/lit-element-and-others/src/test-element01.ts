@@ -1,10 +1,8 @@
 import { LitElement, html, customElement, property, css } from 'lit-element';
+import { ElementMetadata } from './elementMetadata';
 
 /**
- * An example element.
- *
- * @slot - This element has a slot
- * @csspart button - The button
+ * An example element
  */
 @customElement('test-element01')
 export class TestElement01 extends LitElement {
@@ -55,6 +53,11 @@ export class TestElement01 extends LitElement {
         this._metadata = value;
         // this.requestUpdate('metadata', oldValue);
         this._updateMetadata(); // this is actually object
+    }
+
+    @property({ attribute: false, type: ElementMetadata })
+    get result(): ElementMetadata {
+        return new ElementMetadata(this.name, this.count);
     }
 
     render() {

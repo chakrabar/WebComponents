@@ -5,11 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { LitElement, html, customElement, property, css } from 'lit-element';
+import { ElementMetadata } from './elementMetadata';
 /**
- * An example element.
- *
- * @slot - This element has a slot
- * @csspart button - The button
+ * An example element
  */
 let TestElement01 = class TestElement01 extends LitElement {
     constructor() {
@@ -27,6 +25,9 @@ let TestElement01 = class TestElement01 extends LitElement {
         this._metadata = value;
         // this.requestUpdate('metadata', oldValue);
         this._updateMetadata(); // this is actually object
+    }
+    get result() {
+        return new ElementMetadata(this.name, this.count);
     }
     render() {
         return html `
@@ -117,6 +118,9 @@ __decorate([
 __decorate([
     property() // {attribute: false} to make non-attribute BUT we do want to keep attribute too
 ], TestElement01.prototype, "metadata", null);
+__decorate([
+    property({ attribute: false, type: ElementMetadata })
+], TestElement01.prototype, "result", null);
 TestElement01 = __decorate([
     customElement('test-element01')
 ], TestElement01);

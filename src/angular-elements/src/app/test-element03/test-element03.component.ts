@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input, OnChanges, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, OnChanges, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ElementMetadata } from './elementMetadata';
 
 @Component({
@@ -22,15 +22,34 @@ export class TestElement03Component implements OnInit, OnChanges {
     @Input()
     public metadata: ElementMetadata;
 
+    // @Output()
+    public get result(): ElementMetadata {
+        console.log('result property read');
+        return new ElementMetadata(this.name, this.count);
+    }
+    public set result(value) { console.log(`result value set to ${value}`); }
+
+    // just a test angular event output
+    @Output()
+    dataUpdate = new EventEmitter();
+
     ngOnInit() {
-        console.log('Initializing with metadata')
+        console.log('Initializing with metadata');
         this._updateMetadata();
     }
 
+    // this fires when property are set from outside in JS ??
     ngOnChanges() {
-        console.log('Element property value updated')
+        console.log('Element property value updated');
         this._updateMetadata();
+        this.dataUpdate.emit(new ElementMetadata(this.name, this.count));
     }
+    // Should be done with a setter on metadata.
+    // ngOnChanges() is better for watching multiple, interacting input properties
+    // @Input()
+    // set metadata(metadata: any) {
+    //     this._updateMetadata(metadata);
+    // }
 
     private _updateMetadata(): void {
         if (this.metadata) {

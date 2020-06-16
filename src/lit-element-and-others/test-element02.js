@@ -31,6 +31,10 @@ class TestElement02 extends HTMLElement {
         this._updateMetadata();
     }
 
+    get result() {
+        return { name: this.name, count: this.count };
+    }
+
     attributeChangedCallback(attrName, oldValue, newValue) {
         if (newValue !== oldValue) {
             if (attrName === 'collapsed') {
