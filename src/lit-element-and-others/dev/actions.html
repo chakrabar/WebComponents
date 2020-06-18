@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>User Actions Test</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <h2>Test for user interactions & system state</h2>
+        Name: <input id="textName" type="text" onchange="changeText01(this.value)" />
+        <br /><br />
+        Post code: <input id="textPost" type="text" onchange="changeText02(this.value)" />
+        <br /><br />
+        <input id="checkTerms" type="checkbox" checked="true" onchange="console.log(this.checked)" />
+        Accept terms and conditions
+        <br /><br />
+        <button id="btnDone" onclick="done()">Done</button>
+        <span id="result1"></span>
+        <br /><br />
+        <button id="btnSave" onclick="save()">Save</button>
+        <span id="result2"></span>
+        <script>
+            document.body.addEventListener('data-update', function(e) {
+                console.info('data-update event emitted...');
+                console.info(e);
+            });
+            changeText01 = (e) => console.log(`Name changed to: ${e}`);
+            changeText02 = (e) => console.log(`Post changed to: ${e}`);
+            getFormData = () => {
+                const name = document.querySelector('#textName').value;
+                const postCode = document.querySelector('#textPost').value;
+                const accept = document.querySelector('#checkTerms').checked;
+                const resutText = `Name: ${name}, Post: ${postCode}, Accepted: ${accept}`;
+
+                const notifyEvent = new CustomEvent('data-update', { 
+                    detail: { result: resutText },
+                    bubbles: true,
+                });
+                document.querySelector('#textName').dispatchEvent(notifyEvent);
+
+                return resutText;
+            }
+            done = () => {
+                const resutText = getFormData();                
+                document.querySelector('#result1').innerHTML = resutText;
+                console.log('Done');
+            }
+            save = () => {
+                const resutText = getFormData();                
+                document.querySelector('#result2').innerHTML = resutText;
+                console.log('Save');
+            }
+        </script>
+    </body>
+</html>
