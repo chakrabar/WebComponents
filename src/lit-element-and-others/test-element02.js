@@ -9,7 +9,6 @@ class TestElement02 extends HTMLElement {
 
         this._collapsed = false;        
         this._metadata = '';
-        this._commandStore = null;
 
         this.name = 'World';
         this.count = 0;
@@ -33,14 +32,6 @@ class TestElement02 extends HTMLElement {
         this._updateMetadata();
     }
 
-    get commandStore() {
-        return this._commandStore;
-    }
-
-    set commandStore(val) {
-        this._commandStore = val;
-    }
-
     get result() {
         return { name: this.name, count: this.count };
     }
@@ -52,9 +43,6 @@ class TestElement02 extends HTMLElement {
             }
             if (attrName === 'metadata') {
                 this._updateMetadata(); // through we don't really this attribute to update
-            }
-            if (attrName === 'commandStore') {
-                console.log(newValue);
             }
         }
     }
@@ -81,16 +69,25 @@ class TestElement02 extends HTMLElement {
         this.name = nm ? nm : 'World';
         this.shadowRoot.querySelector('h1').innerHTML = `Hello, ${this.name}!`;
     }
+    
     increment = () => {
         let amount = this.shadowRoot.querySelector('#amount').value;
         if (!amount) amount = '1';
-        this._commandStore.increment(parseInt(amount));
+        this.commandStore.increment(parseInt(amount));
     }
     decrement = () => {
         let amount = this.shadowRoot.querySelector('#amount').value;
         if (!amount) amount = '1';
-        this._commandStore.decrement(parseInt(amount));
+        this.commandStore.decrement(parseInt(amount));
     }
+    configureInjectedCommands = () => {
+        // IMP: NOTE: commandStore property is NOT EXPLICITLY defined on the class, BUT for
+        // this functionality to work, it has to be set from client code on the compoent DOM
+        // document.querySelector('test-element02').commandStore = { increment(), decrement() }
+        this.shadowRoot.querySelector('#increment').addEventListener('click', this.increment);
+        this.shadowRoot.querySelector('#decrement').addEventListener('click', this.decrement);
+    }
+
     _updateMetadata() {
         if (this.metadata) {
             const parsedMetadata = typeof this.metadata === 'string'
@@ -170,8 +167,7 @@ class TestElement02 extends HTMLElement {
         this.shadowRoot.querySelector('#clkBtn').addEventListener('click', this.onClick);
         this.shadowRoot.querySelector('#name').addEventListener('input', this.syncName);
         this.shadowRoot.querySelector('#name').addEventListener('change', this._notify);
-        this.shadowRoot.querySelector('#increment').addEventListener('click', this.increment);
-        this.shadowRoot.querySelector('#decrement').addEventListener('click', this.decrement);
+        this.configureInjectedCommands();      
 
         this.metadata = this.getAttribute('metadata');
         this._updateMetadata();

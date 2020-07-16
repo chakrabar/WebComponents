@@ -11,7 +11,6 @@ function changeTheme() {
     }
 }
 
-
 let rootAmount = 0;
 
 const commandStore = {
@@ -28,7 +27,7 @@ const commandStore = {
 // For vanilla JS, this needs to be called explicitly 🙄
 const injectCommands = () => {
     var custElement = document.querySelector('#element');
-	custElement.commandStore = commandStore;
+	custElement.commandStore = commandStore; // set the commandStore property of the component
 }
 
 function passDevMetadata() {
@@ -38,8 +37,6 @@ function passDevMetadata() {
 		count: 99,
 	};
     custElement.metadata = devData;
-
-    injectCommands();
 }
 
 function getResult() {
@@ -56,6 +53,6 @@ function registerEventListener() {
         console.info('data-update detected...');
         console.info(e);
     });
-    // NEW
+    // NEW :: to auto inject the commands into web component
     injectCommands();
 }
