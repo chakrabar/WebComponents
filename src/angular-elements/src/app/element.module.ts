@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
 import { createCustomElement } from '@angular/elements'; // ARGHYA: to make web component
+import { FormsModule } from '@angular/forms';
 import { TestElement03Component } from './test-element03/test-element03.component';
 
 // this is the main module
@@ -14,6 +15,7 @@ import { TestElement03Component } from './test-element03/test-element03.componen
     ],
     imports: [
         BrowserModule,
+        FormsModule,
     ],
     providers: [],
     // bootstrap: [TestElement03Component] // ARGHYA: do not try to render the component

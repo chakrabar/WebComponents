@@ -14,4 +14,10 @@ Name: <input
         Click Count: {{count}}
     </button>
     <slot></slot>
+    Update amount: <input
+        type="number"
+        placeholder="0"
+        [(ngModel)]="amount" />
+    <button (click)="increment()">Increment</button>
+    <button (click)="decrement()">Decrement</button>
 </div>

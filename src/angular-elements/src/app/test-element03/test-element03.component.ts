@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation, Input, OnChanges, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ElementMetadata } from './elementMetadata';
+import { CommandStore } from './commandStore';
 
 @Component({
     selector: 'app-test-element03', // this is not really used
@@ -21,12 +22,20 @@ export class TestElement03Component implements OnInit, OnChanges {
 
     public name = 'World';
     public count = 0;
+    public amount = 1;
+
+    private _commandStore: CommandStore;
 
     @Input()
     public collapsed = false;
 
     @Input()
     public metadata: ElementMetadata;
+
+    @Input()
+    public set commandStore(value: CommandStore) {
+        this._commandStore = value;
+    }
 
     @Input()
     public get result3(): ElementMetadata {
@@ -80,6 +89,14 @@ export class TestElement03Component implements OnInit, OnChanges {
 
     public onClick(): void {
         this.count++;
+    }
+
+    public increment(): void {
+        this._commandStore.increment(this.amount);
+    }
+
+    public decrement(): void {
+        this._commandStore.decrement(this.amount);
     }
 
     public toggle(): void {
