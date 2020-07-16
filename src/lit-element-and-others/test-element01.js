@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { LitElement, html, customElement, property, css } from 'lit-element';
 import { ElementMetadata } from './elementMetadata';
+import { CommandStore } from './commandStore';
 /**
  * An example element
  */
@@ -26,6 +27,9 @@ let TestElement01 = class TestElement01 extends LitElement {
         // this.requestUpdate('metadata', oldValue);
         this._updateMetadata(); // this is actually object
     }
+    set commandStore(value) {
+        this._commandStore = value;
+    }
     get result() {
         return new ElementMetadata(this.name, this.count);
     }
@@ -39,8 +43,25 @@ let TestElement01 = class TestElement01 extends LitElement {
                 Click Count: ${this.count}
             </button>
             <slot></slot>
+            Update amount: <input id="amount" type="number" placeholder="0" />
+            <button @click=${this._increment}>Increment</button>
+            <button @click=${this._decrement}>Decrement</button>
         </div>
         `;
+    }
+    _increment() {
+        var _a, _b;
+        let amount = ((_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.querySelector('#amount')).value;
+        if (!amount)
+            amount = '1';
+        (_b = this._commandStore) === null || _b === void 0 ? void 0 : _b.increment(parseInt(amount));
+    }
+    _decrement() {
+        var _a, _b;
+        let amount = ((_a = this.shadowRoot) === null || _a === void 0 ? void 0 : _a.querySelector('#amount')).value;
+        if (!amount)
+            amount = '1';
+        (_b = this._commandStore) === null || _b === void 0 ? void 0 : _b.decrement(parseInt(amount));
     }
     _onClick() {
         this.count++;
@@ -118,6 +139,9 @@ __decorate([
 __decorate([
     property() // {attribute: false} to make non-attribute BUT we do want to keep attribute too
 ], TestElement01.prototype, "metadata", null);
+__decorate([
+    property({ attribute: false, type: CommandStore })
+], TestElement01.prototype, "commandStore", null);
 __decorate([
     property({ attribute: false, type: ElementMetadata })
 ], TestElement01.prototype, "result", null);

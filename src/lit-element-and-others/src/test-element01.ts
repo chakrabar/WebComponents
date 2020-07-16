@@ -1,5 +1,6 @@
 import { LitElement, html, customElement, property, css } from 'lit-element';
 import { ElementMetadata } from './elementMetadata';
+import { CommandStore } from './commandStore';
 
 /**
  * An example element
@@ -43,6 +44,7 @@ export class TestElement01 extends LitElement {
     collapsed = false;
 
     private _metadata = '';
+    private _commandStore: CommandStore | undefined;
 
     @property() // {attribute: false} to make non-attribute BUT we do want to keep attribute too
     get metadata(): string {
@@ -53,6 +55,11 @@ export class TestElement01 extends LitElement {
         this._metadata = value;
         // this.requestUpdate('metadata', oldValue);
         this._updateMetadata(); // this is actually object
+    }
+
+    @property({ attribute: false, type: CommandStore })
+    set commandStore(value: CommandStore) { // when value of metadata is set from JS
+        this._commandStore = value;
     }
 
     @property({ attribute: false, type: ElementMetadata })
@@ -70,8 +77,23 @@ export class TestElement01 extends LitElement {
                 Click Count: ${this.count}
             </button>
             <slot></slot>
+            Update amount: <input id="amount" type="number" placeholder="0" />
+            <button @click=${this._increment}>Increment</button>
+            <button @click=${this._decrement}>Decrement</button>
         </div>
         `;
+    }
+
+    private _increment() {
+        let amount = (this.shadowRoot?.querySelector('#amount') as HTMLInputElement).value;
+        if (!amount) amount = '1';
+        this._commandStore?.increment(parseInt(amount));
+    }
+
+    private _decrement() {
+        let amount = (this.shadowRoot?.querySelector('#amount') as HTMLInputElement).value;
+        if (!amount) amount = '1';
+        this._commandStore?.decrement(parseInt(amount));
     }
 
     private _onClick() {

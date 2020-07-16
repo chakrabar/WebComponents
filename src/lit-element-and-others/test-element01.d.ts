@@ -1,5 +1,6 @@
 import { LitElement } from 'lit-element';
 import { ElementMetadata } from './elementMetadata';
+import { CommandStore } from './commandStore';
 /**
  * An example element
  */
@@ -9,10 +10,14 @@ export declare class TestElement01 extends LitElement {
     count: number;
     collapsed: boolean;
     private _metadata;
+    private _commandStore;
     get metadata(): string;
     set metadata(value: string);
+    set commandStore(value: CommandStore);
     get result(): ElementMetadata;
     render(): import("lit-element").TemplateResult;
+    private _increment;
+    private _decrement;
     private _onClick;
     private _toggle;
     private _syncName;

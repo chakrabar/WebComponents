@@ -7,10 +7,12 @@ class TestElement02 extends HTMLElement {
     constructor() {
         super();
 
-        this.name = 'World';
-        this._collapsed = false;
-        this.count = 0;
+        this._collapsed = false;        
         this._metadata = '';
+        this._commandStore = null;
+
+        this.name = 'World';
+        this.count = 0;
     }
 
     get collapsed() {
@@ -31,6 +33,14 @@ class TestElement02 extends HTMLElement {
         this._updateMetadata();
     }
 
+    get commandStore() {
+        return this._commandStore;
+    }
+
+    set commandStore(val) {
+        this._commandStore = val;
+    }
+
     get result() {
         return { name: this.name, count: this.count };
     }
@@ -42,6 +52,9 @@ class TestElement02 extends HTMLElement {
             }
             if (attrName === 'metadata') {
                 this._updateMetadata(); // through we don't really this attribute to update
+            }
+            if (attrName === 'commandStore') {
+                console.log(newValue);
             }
         }
     }
@@ -68,6 +81,16 @@ class TestElement02 extends HTMLElement {
         this.name = nm ? nm : 'World';
         this.shadowRoot.querySelector('h1').innerHTML = `Hello, ${this.name}!`;
     }
+    increment = () => {
+        let amount = this.shadowRoot.querySelector('#amount').value;
+        if (!amount) amount = '1';
+        this._commandStore.increment(parseInt(amount));
+    }
+    decrement = () => {
+        let amount = this.shadowRoot.querySelector('#amount').value;
+        if (!amount) amount = '1';
+        this._commandStore.decrement(parseInt(amount));
+    }
     _updateMetadata() {
         if (this.metadata) {
             const parsedMetadata = typeof this.metadata === 'string'
@@ -78,7 +101,7 @@ class TestElement02 extends HTMLElement {
                 this.name = parsedMetadata.name;
                 this.shadowRoot.querySelector('#clkBtn').innerHTML = `Click Count: ${this.count}`;
                 this.shadowRoot.querySelector('h1').innerHTML = `Hello, ${this.name}!`;
-                this.shadowRoot.querySelector('input').placeholder = this.name;
+                this.shadowRoot.querySelector('#name').placeholder = this.name;
             }
             else {
                 console.error(`Invalid metadata value!`);
@@ -130,20 +153,25 @@ class TestElement02 extends HTMLElement {
                 }
             </style>
             <h1>Hello, ${this.name}!</h1>
-            Name: <input type="text" placeholder="${this.name}" />
+            Name: <input id="name" type="text" placeholder="${this.name}" />
             <button id="tglBtn" class="float-right">Collapse ↑</button>
             <div class="box">
                 <button id="clkBtn">
                     Click Count: 0
                 </button>
                 <slot></slot>
+                Update amount: <input id="amount" type="number" placeholder="0" />
+                <button id="increment">Increment</button>
+                <button id="decrement">Decrement</button>
             </div>
         `;
 
         this.shadowRoot.querySelector('#tglBtn').addEventListener('click', this.toggle);
         this.shadowRoot.querySelector('#clkBtn').addEventListener('click', this.onClick);
-        this.shadowRoot.querySelector('input').addEventListener('input', this.syncName);
-        this.shadowRoot.querySelector('input').addEventListener('change', this._notify);
+        this.shadowRoot.querySelector('#name').addEventListener('input', this.syncName);
+        this.shadowRoot.querySelector('#name').addEventListener('change', this._notify);
+        this.shadowRoot.querySelector('#increment').addEventListener('click', this.increment);
+        this.shadowRoot.querySelector('#decrement').addEventListener('click', this.decrement);
 
         this.metadata = this.getAttribute('metadata');
         this._updateMetadata();

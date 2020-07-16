@@ -2,24 +2,16 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>LitElement Web Component</title>
-        <script type="module" src="../test-element01.js"></script>
-        <link rel="stylesheet" href="style.css" />
-        <script type="text/javascript" src="script.js"></script>
+        <title>Web Components test page</title>
     </head>
     <body>
-        <h2>LitElement Web Component</h2>
-        Change Theme: <button id="themeButton" onclick="changeTheme()">Night</button>
+        <h2>Web Components test page</h2>
         <br /><br />
-        <test-element01 id="element" collapsed="true" metadata='{"count":10,"name":"Guest"}'>
-            <p>This is a test 01: Web Component with LitElement</p>
-        </test-element01>
-        <br /><br />
-        <button id="devData" onclick="passDevMetadata()">Pass data</button>
-        <button id="btnResult" onclick="getResult()">Get Result</button>
-        <span id="result"></span>
-        <script>
-            registerEventListener();
-        </script>
+        <a href="/dev/index1.html">Lit Element</a>
+        <br />
+        <a href="/dev/index2.html">Vanilla JS</a>
+        <br />
+        <a href="/dev/index3.html">Angular El.</a>
+        <br />
     </body>
 </html>

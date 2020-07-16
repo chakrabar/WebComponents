@@ -11,13 +11,35 @@ function changeTheme() {
     }
 }
 
+
+let rootAmount = 0;
+
+const commandStore = {
+    increment: (amount) => {
+        rootAmount += amount;
+        console.log(`Root amount: ${rootAmount}`);
+    },
+    decrement: (amount) => {
+        rootAmount -= amount;
+        console.log(`Root amount: ${rootAmount}`);
+    },
+}
+
+// For vanilla JS, this needs to be called explicitly 🙄
+const injectCommands = () => {
+    var custElement = document.querySelector('#element');
+	custElement.commandStore = commandStore;
+}
+
 function passDevMetadata() {
     var custElement = document.querySelector('#element');
 	var devData = {
 		name: 'Developer',
 		count: 99,
 	};
-	custElement.metadata = devData;
+    custElement.metadata = devData;
+
+    injectCommands();
 }
 
 function getResult() {
@@ -34,4 +56,6 @@ function registerEventListener() {
         console.info('data-update detected...');
         console.info(e);
     });
+    // NEW
+    injectCommands();
 }

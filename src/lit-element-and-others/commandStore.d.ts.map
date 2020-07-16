@@ -1,0 +1,1 @@
+{"version":3,"file":"commandStore.d.ts","sourceRoot":"","sources":["src/commandStore.ts"],"names":[],"mappings":"AAAA,qBAAa,YAAY;IAEV,SAAS,EAAE,CAAC,MAAM,EAAE,MAAM,KAAK,IAAI;IACnC,SAAS,EAAE,CAAC,MAAM,EAAE,MAAM,KAAK,IAAI;gBADnC,SAAS,EAAE,CAAC,MAAM,EAAE,MAAM,KAAK,IAAI,EACnC,SAAS,EAAE,CAAC,MAAM,EAAE,MAAM,KAAK,IAAI;CAEjD"}

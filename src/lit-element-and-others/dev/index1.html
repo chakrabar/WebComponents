@@ -2,24 +2,22 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Vanilla JS Web Component</title>
-        <script type="module" src="../test-element02.js"></script>
+        <title>LitElement Web Component</title>
+        <script type="module" src="../test-element01.js"></script>
         <link rel="stylesheet" href="style.css" />
         <script type="text/javascript" src="script.js"></script>
     </head>
     <body>
-        <h2>Vanilla JS Web Component</h2>
+        <h2>LitElement Web Component</h2>
         Change Theme: <button id="themeButton" onclick="changeTheme()">Night</button>
         <br /><br />
-        <test-element02 id="element" collapsed="true" metadata='{"count":10,"name":"Guest"}'>
-            <p>This is a test 02: Web Component with Vanilla JS</p>
-        </test-element02>
+        <test-element01 id="element" collapsed="true" metadata='{"count":10,"name":"Guest"}'>
+            <p>This is a test 01: Web Component with LitElement</p>
+        </test-element01>
         <br /><br />
         <button id="devData" onclick="passDevMetadata()">Pass data</button>
         <button id="btnResult" onclick="getResult()">Get Result</button>
         <span id="result"></span>
-        <br /><br />
-        <button id="commands" onclick="injectCommands()">Inject Commands</button>
         <script>
             registerEventListener();
         </script>
