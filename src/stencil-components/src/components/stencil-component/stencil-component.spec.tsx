@@ -1,18 +1,18 @@
 import { newSpecPage } from '@stencil/core/testing';
-import { CoolComponent } from './cool-component';
+import { StencilComponent } from './stencil-component';
 
-describe('cool-component', () => {
+describe('stencil-component', () => {
   it('renders', async () => {
     const page = await newSpecPage({
-      components: [CoolComponent],
-      html: `<cool-component></cool-component>`,
+      components: [StencilComponent],
+      html: `<stencil-component></stencil-component>`,
     });
     expect(page.root).toEqualHtml(`
-      <cool-component>
+      <stencil-component>
         <mock:shadow-root>
           <slot></slot>
         </mock:shadow-root>
-      </cool-component>
+      </stencil-component>
     `);
   });
 });

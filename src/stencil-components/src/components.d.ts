@@ -5,9 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { CommandStore, } from "./components/stencil-component/commandStore";
 export namespace Components {
-    interface CoolComponent {
-    }
     interface MyComponent {
         /**
           * The first name
@@ -22,28 +21,31 @@ export namespace Components {
          */
         "middle": string;
     }
+    interface StencilComponent {
+        "collapsed": boolean;
+        "metadata": string;
+        "setCommandStore": (value: CommandStore) => Promise<void>;
+    }
 }
 declare global {
-    interface HTMLCoolComponentElement extends Components.CoolComponent, HTMLStencilElement {
-    }
-    var HTMLCoolComponentElement: {
-        prototype: HTMLCoolComponentElement;
-        new (): HTMLCoolComponentElement;
-    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLStencilComponentElement extends Components.StencilComponent, HTMLStencilElement {
+    }
+    var HTMLStencilComponentElement: {
+        prototype: HTMLStencilComponentElement;
+        new (): HTMLStencilComponentElement;
+    };
     interface HTMLElementTagNameMap {
-        "cool-component": HTMLCoolComponentElement;
         "my-component": HTMLMyComponentElement;
+        "stencil-component": HTMLStencilComponentElement;
     }
 }
 declare namespace LocalJSX {
-    interface CoolComponent {
-    }
     interface MyComponent {
         /**
           * The first name
@@ -58,17 +60,22 @@ declare namespace LocalJSX {
          */
         "middle"?: string;
     }
+    interface StencilComponent {
+        "collapsed"?: boolean;
+        "metadata"?: string;
+        "onData-update"?: (event: CustomEvent<object>) => void;
+    }
     interface IntrinsicElements {
-        "cool-component": CoolComponent;
         "my-component": MyComponent;
+        "stencil-component": StencilComponent;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "cool-component": LocalJSX.CoolComponent & JSXBase.HTMLAttributes<HTMLCoolComponentElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "stencil-component": LocalJSX.StencilComponent & JSXBase.HTMLAttributes<HTMLStencilComponentElement>;
         }
     }
 }

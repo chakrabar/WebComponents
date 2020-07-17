@@ -45,6 +45,11 @@ npm test
 
 Need help? Check out our docs [here](https://stenciljs.com/docs/my-first-component).
 
+To create a new component inside `src/components`, run following command at project root
+
+```bash
+npx stencil generate
+```
 
 ## Naming Components
 

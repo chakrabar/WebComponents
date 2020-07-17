@@ -1,11 +1,11 @@
 import { newE2EPage } from '@stencil/core/testing';
 
-describe('cool-component', () => {
+describe('stencil-component', () => {
   it('renders', async () => {
     const page = await newE2EPage();
-    await page.setContent('<cool-component></cool-component>');
+    await page.setContent('<stencil-component></stencil-component>');
 
-    const element = await page.find('cool-component');
+    const element = await page.find('stencil-component');
     expect(element).toHaveClass('hydrated');
   });
 });
