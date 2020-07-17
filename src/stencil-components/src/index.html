@@ -41,7 +41,8 @@
 
         const getResult = async () => {
             var custElement = document.querySelector('#element');
-            const result = await custElement.result();
+            // const result = await custElement.result();
+            const result = custElement.resultJS;
             console.log(result);
         }
 
@@ -54,8 +55,9 @@
 
         (async () => {
             await customElements.whenDefined('stencil-component');
-            const todoListElement = document.querySelector('stencil-component');
-            await todoListElement.setCommandStore(commandStore);
+            const component = document.querySelector('stencil-component');
+            await component.setCommandStore(commandStore); // setter approach 1
+            component.commands = commandStore; // setter approach 2
         })();
     </script>
 </html>

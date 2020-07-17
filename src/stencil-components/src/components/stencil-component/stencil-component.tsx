@@ -22,6 +22,17 @@ import { CommandStore } from './commandStore';
 })
 export class StencilComponent implements ComponentInterface {
 
+    constructor() {
+        // This constructor is generally not required. We are using this to natively add a readonly
+        // property (with getter) BECAUSE Stencil cannot handle a getter @Prop()...
+        // This is just an alternative implimentation of result() method, as a get only property
+        // NOTE: IMP: This is NOT included in the TypeScript type definition
+        Object.defineProperty(this._hostElement, 'resultJS', {
+            get: () => { return new ElementMetadata(this._name, this._count); }, // IMP: the arrow
+            enumerable: true,
+        });
+    }
+
     @State() // internal state [1] update internally [2] NO outside update [3] update WILL CAUSE RE-RENDER
     private _name = 'World';
     @State() // docs: https://stenciljs.com/docs/state
@@ -58,7 +69,7 @@ export class StencilComponent implements ComponentInterface {
         }
     }
 
-    // @Prop() // obviously CANNOT return dynamic data...always returns the initial values
+    // @Prop() // obviously CANNOT return dynamic data, always returns the initial values
     // public result: ElementMetadata = new ElementMetadata(this._name, this._count);
 
     // @Prop() // Prop does NOT work on getter setter
@@ -69,7 +80,7 @@ export class StencilComponent implements ComponentInterface {
 
     // They say DO NOT use Method() > https://stenciljs.com/docs/methods 🙄
 
-    // a getter CANNOT be a Method > https://github.com/ionic-team/stencil/issues/230
+    // a getter CANNOT be a @Method() > https://github.com/ionic-team/stencil/issues/230
     @Method() // unnecessarily have to make a method & async ()
     public async result(): Promise<ElementMetadata> {
         return new ElementMetadata(this._name, this._count);
@@ -81,10 +92,15 @@ export class StencilComponent implements ComponentInterface {
         this._commandStore = value;
     }
 
+    // Since setter is not allowed, we just add this as a simple property < alternative of setCommandStore()
+    @Prop()
+    public commands: CommandStore;
+
     private _increment() {
         let amount = this._amountTextInput.value; // we have captured through ref in JSX
         if (!amount) amount = '1';
-        this._commandStore?.increment(parseInt(amount));
+        // this._commandStore?.increment(parseInt(amount));
+        this.commands?.increment(parseInt(amount));
     }
 
     private _decrement() {

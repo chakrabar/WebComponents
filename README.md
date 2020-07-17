@@ -27,7 +27,6 @@ I made a not-so-complex web component, in all 3 ways, with exact same functional
 |Code maintainability|Low. `HTML` & `CSS` goes inside `JS` as strings|Better. Though they are all in `JS` by default, there are specific `VS Code` extensions that help with syntax highlight|High. Just like any `Angular` project, components have separate `TS` code, `HTML` and `CSS`. Also because Angular is a full blown framework, it's easier to maintain different services, dependency injection etc.|Follows `JSX` as code, or rather `TSX` when using `TypeScript`, which is well supported. But need to follow their specific constructs & coding practices (same with other libraries also). Kind of closer to `LitElement`, just that it's `JSX`, popular in `React` world|
 |Style & Theme|Not easy or maintainable|Similar|Slightly better because of the style separation, and in-built support for `SCSS`/`SASS`/`LESS`|Has default option for separate `CSS` file which is good, also global stylesheets can be passed in, for CSS variables. Does not seem to have default option for `SCSS` and the likes|
 |SO questions (July 2020)|🙂|[409](https://stackoverflow.com/questions/tagged/lit-element)|[206](https://stackoverflow.com/questions/tagged/angular-elements)|[364](https://stackoverflow.com/questions/tagged/stenciljs)|
-||||||
 
 **NOTE:**
 1. The payload and load time includes the host page and styles as well, which is actually same for all 3 cases.
@@ -95,9 +94,9 @@ From experience
     * And [this](https://stackoverflow.com/questions/62400998/reading-data-from-angular-elements-web-component-in-plain-javascript) seems to be an issue currently with `Angular Elements`, and might be a blocker in some scenarios!
 * `Stencil` also seems like a robust libray for building stand-alone web components. It's bit opinionated, and uses `JSX`, but seems stable. BUT, few things to keep in mind
     * They are a `build-tool` rather than a library, so they _"ideally"_ turn your `TSX` code into plain `JS` web component and leave it there. The _"optimized"_ output is just slightly better (in size) than that of others
-    * There are few **issues and/or gaps** I've seen while using them, the biggest of them IMO are -
+    * There are few **issues and/or gaps** I've seen while using them, the biggest of them IMO are (note that, they might not be issues at all, depending on your use cases and coding styles) -
     * You [cannot have](https://github.com/ionic-team/stencil/issues/1359) `getter`, `setter` as component properties, you always have to use a plain simple properties only!
     * So, many a times you'll end up creating `@Method` to expose public methods, which [they discourage](https://stenciljs.com/docs/methods) using against 🙄
     * If you use methods, they must be `async`
-    * Can [not use](https://github.com/ionic-team/stencil/issues/230) `getter` as method
+    * Can [not use](https://github.com/ionic-team/stencil/issues/230) `getter` as method (maybe `setter` too)
 

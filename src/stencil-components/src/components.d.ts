@@ -5,11 +5,12 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ElementMetadata, } from "./components/stencil-component/elementMetadata";
 import { CommandStore, } from "./components/stencil-component/commandStore";
+import { ElementMetadata, } from "./components/stencil-component/elementMetadata";
 export namespace Components {
     interface StencilComponent {
         "collapsed": boolean;
+        "commands": CommandStore;
         "metadata": string | object;
         "result": () => Promise<ElementMetadata>;
         "setCommandStore": (value: CommandStore) => Promise<void>;
@@ -29,6 +30,7 @@ declare global {
 declare namespace LocalJSX {
     interface StencilComponent {
         "collapsed"?: boolean;
+        "commands"?: CommandStore;
         "metadata"?: string | object;
         "onData-update"?: (event: CustomEvent<object>) => void;
     }
