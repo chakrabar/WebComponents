@@ -30,7 +30,6 @@ export class StencilComponent implements ComponentInterface {
     private _commandStore: CommandStore | undefined; // Need/should not re-render
     private _nameTextInput!: HTMLInputElement; // JSX can have direct reference to elements
     private _amountTextInput!: HTMLInputElement;
-    // private _hostElement!: HTMLElement; // to capture the host / component element
 
     @Element() // get host element ref
     private _hostElement!: HTMLElement; // to automatically capture the host / component element
@@ -41,9 +40,9 @@ export class StencilComponent implements ComponentInterface {
 
     // docs: https://stenciljs.com/docs/properties reflect: true to reflect Prop value in attr
     @Prop({mutable: true, reflect: true})
-    metadata: string;
+    metadata: string | object;
     @Watch('metadata') // watch ONLY CHECKS REFERENCE, internal property changes are NOT watched..!!!
-    validateMetadata(newValue: string, oldValue: string) {
+    validateMetadata(newValue: string | object, oldValue: string | object) {
         if (newValue) {
             const parsedMetadata = typeof newValue === 'string'
                 ? JSON.parse(newValue)
@@ -59,15 +58,27 @@ export class StencilComponent implements ComponentInterface {
         }
     }
 
-    // @Prop({  }) // client needs to set this
+    // @Prop() // obviously CANNOT return dynamic data...always returns the initial values
+    // public result: ElementMetadata = new ElementMetadata(this._name, this._count);
+
+    // @Prop() // Prop does NOT work on getter setter
+    // // https://github.com/ionic-team/stencil/issues/1359 < they simply closed the issue 😐
+    // public get result2(): ElementMetadata { // won't create attribute since type is object
+    //     return new ElementMetadata(this._name, this._count);
+    // }
+
+    // They say DO NOT use Method() > https://stenciljs.com/docs/methods 🙄
+
+    // a getter CANNOT be a Method > https://github.com/ionic-team/stencil/issues/230
+    @Method() // unnecessarily have to make a method & async ()
+    public async result(): Promise<ElementMetadata> {
+        return new ElementMetadata(this._name, this._count);
+    }
+
+    // See above 2 issues => has to be an async method to be used as a setter
     @Method()
     public async setCommandStore(value: CommandStore) { // won't create attribute since type is NOT primitive
         this._commandStore = value;
-    }
-
-    // @Prop() // a ead-only DOM object property
-    public get result(): object { // won't create attribute since type is object
-        return new ElementMetadata(this._name, this._count);
     }
 
     private _increment() {

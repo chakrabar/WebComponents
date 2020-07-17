@@ -9,12 +9,12 @@
         <script nomodule src="/build/stencil-components.js"></script>
     </head>
     <body>
-        <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+        <h2>Testing Stencil.js Web Components</h2>
         <stencil-component id="element" collapsed="true">
             <p>This is a test 04: Web Component with Stencil.js</p>
         </stencil-component>
         <button id="devData" onclick="passDevMetadata()">Pass data</button>
-        <button id="cmdStore" onclick="injectCommands()">CommandStore</button>
+        <button id="cmdStore" onclick="getResult()">Get result</button>
     </body>
     <script>
         function passDevMetadata() {
@@ -39,17 +39,11 @@
             },
         }
 
-        // For vanilla JS, this needs to be called explicitly 🙄
-        const injectCommands = () => {
+        const getResult = async () => {
             var custElement = document.querySelector('#element');
-            // custElement.commandStore = commandStore; // set the commandStore property of the component
-            console.log(custElement.result);
+            const result = await custElement.result();
+            console.log(result);
         }
-
-        // (async () => {
-        //     await customElements.whenDefined('stencil-component');
-        //     injectCommands();
-        // })();
 
         (() => {
             document.body.addEventListener('data-update', function(e) {
